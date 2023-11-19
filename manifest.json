@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "GlovoFavorites",
+  "description": "Manage Glovo Favorite products",
+  "version": "1.0",
+  "action": {
+    "default_popup": "/dist/chrome-popup/index.html",
+    "default_icon": "/dist/chrome-popup/heart_yellow.png"
+  },
+  "permissions": ["webRequest"],
+  "host_permissions": ["https://glovoapp.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://glovoapp.com/*"],
+      "css": ["/dist/glovo-web/styles.css"],
+      "js": ["/dist/glovo-web/index.mjs"],
+      "type": "module"
+    }
+  ],
+  "background": {
+    "service_worker": "/dist/service-worker/index.mjs",
+    "type": "module"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["*.js", "*.png"],
+      "matches": ["https://glovoapp.com/*"]
+    }
+  ]
+}

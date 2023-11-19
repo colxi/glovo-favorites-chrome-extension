@@ -1,0 +1,25 @@
+[favorite-product= "true"]{
+  background: #ffc245;
+}
+
+.favorite-button{
+  place-self: center;
+    width: 100%;
+    display: grid;
+    margin-right: 20px;
+    place-content: end;
+}
+
+.favorite-button__icon{
+  width:25px
+}
+
+[favorite-product="true"] .favorite-button__icon {
+  display: block;
+}
+
+[favorite-product="false"] .favorite-button__icon {
+  display: block;
+  opacity: 0.5;
+  filter: grayscale();
+}
