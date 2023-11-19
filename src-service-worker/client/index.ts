@@ -1,4 +1,4 @@
-import type { Method } from '@types'
+import type { Method } from '@packages/types'
 import { createRequestHandler } from './request-handler'
 
 export function initCommunicationClient(controllersMap: Record<string, Method>): void {

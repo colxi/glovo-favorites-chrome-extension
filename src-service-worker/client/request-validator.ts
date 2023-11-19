@@ -1,4 +1,4 @@
-import type { Method } from '@types'
+import type { Method } from '@packages/types'
 
 export function validateRequestObject(
   requestData: unknown,

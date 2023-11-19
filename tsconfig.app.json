@@ -2,19 +2,19 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
     "env.d.ts",
-    "types/**/*",
+    "packages/**/*",
     "src-extension-popup/**/*",
     "src-extension-popup/**/*.vue",
     "src-service-worker/**/*",
     "src-glovo-web/**/*"
   ],
-  "exclude": ["src/**/__tests__/*"],
+  "exclude": ["src-extension-popup/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@types": ["./types"]
+      "@/*": ["./src-extension-popup/*"],
+      "@packages/*": ["./packages/*"]
     },
     "types": ["chrome"]
   }

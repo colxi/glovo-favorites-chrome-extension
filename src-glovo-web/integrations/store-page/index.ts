@@ -1,5 +1,5 @@
 import { PRODUCT_ROW, PRODUCT_ROW_BUTTONS_WRAPPER, ADD_PRODUCT_TO_CART_BUTTON } from './selectors'
-import { api } from './../../api'
+import { api } from '@packages/worker-api'
 import { uuid } from './../../utils/uuid'
 import { querySelectorAllStrict, querySelectorStrict } from '../../utils/query-selector'
 import {
@@ -65,6 +65,7 @@ async function onAddProductToFavoritesButtonClick(productEl: HTMLElement): Promi
       await api.addStoreToFavorites({
         id: uuid(),
         url: storeDetails.url,
+        image: storeDetails.image,
         name: storeDetails.name,
         products: [{ name: productDetails.name, image: productDetails.imageUrl }]
       })

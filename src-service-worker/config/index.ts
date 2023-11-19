@@ -1,2 +1,2 @@
-export const DB_NAME = 'MyDatabase635654'
-export const DB_STORE_NAME = 'FavoritesStore'
+export const DB_NAME = 'GlovoFavorites_12312f'
+export const DB_STORE_NAME = 'Favorites'

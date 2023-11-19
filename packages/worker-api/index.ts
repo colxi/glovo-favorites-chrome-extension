@@ -1,4 +1,4 @@
-import type { StoreDescriptor, StoreProductDescriptor } from '@types'
+import type { StoreDescriptor, StoreProductDescriptor } from '@packages/types'
 import { workerClient } from './worker-client'
 
 export const api = {

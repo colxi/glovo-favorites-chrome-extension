@@ -7,7 +7,7 @@
     "default_popup": "/dist/chrome-popup/index.html",
     "default_icon": "/dist/chrome-popup/heart_yellow.png"
   },
-  "permissions": ["webRequest"],
+  "permissions": ["webRequest", "tabs"],
   "host_permissions": ["https://glovoapp.com/*"],
   "content_scripts": [
     {

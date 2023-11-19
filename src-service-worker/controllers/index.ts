@@ -1,5 +1,5 @@
-import type { Method, StoreDescriptor, StoreProductDescriptor } from '@types'
-import { getAllDatabaseEntries, addToDatabase } from '../database'
+import type { Method, StoreDescriptor, StoreProductDescriptor } from '@packages/types'
+import { getAllDatabaseEntries, addToDatabase, deleteFromDatabase } from '../database'
 import { getActiveConnections } from '../connection-tracker'
 
 export const workerPublicMethodsMap: Record<string, Method> = {
@@ -10,7 +10,8 @@ export const workerPublicMethodsMap: Record<string, Method> = {
   isStoreInFavorites,
   getStoreFromFavorites,
   getActiveNetworkConnections,
-  removeProductFromStoreFavorites
+  removeProductFromStoreFavorites,
+  deleteStoreFromFavorites
 }
 
 async function getAllFavorites(): Promise<StoreDescriptor[]> {
@@ -30,6 +31,12 @@ async function addStoreToFavorites(
   storeData: StoreDescriptor
 ): Promise<void> {
   await addToDatabase(storeData)
+}
+
+async function deleteStoreFromFavorites(
+  storeUrl: string
+): Promise<void> {
+  await deleteFromDatabase(storeUrl)
 }
 
 async function addProductToStoreFavorites(

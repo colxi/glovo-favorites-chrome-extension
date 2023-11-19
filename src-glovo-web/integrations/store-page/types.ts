@@ -1,6 +1,7 @@
 export interface StoreDetails {
   url: string
   name: string
+  image: string
   isInFavorites: boolean
 }
 

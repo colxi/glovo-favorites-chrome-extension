@@ -1,4 +1,4 @@
-import type { Method, WorkerRequest, WorkerResponse } from '@types'
+import type { Method, WorkerRequest, WorkerResponse } from '@packages/types'
 import { validateRequestObject } from './request-validator'
 
 /**
@@ -16,6 +16,8 @@ export function createRequestHandler(controllersMap: Record<string, Method>) {
       sendResponse({ type: 'error', data: validationResult })
       return true
     }
+
+    console.log('[REQUEST]', requestData)
 
     // call controller method
     const controllerPromise = controllersMap[requestData.method](...requestData.parameters)

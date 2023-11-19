@@ -4,6 +4,7 @@ export interface StoreDescriptor {
   id: string
   url: string
   name: string
+  image: string
   products: StoreProductDescriptor[]
 }
 

@@ -40,3 +40,15 @@ export async function addToDatabase(data: object): Promise<IDBValidKey> {
     tx.oncomplete = () => { db.close() }
   })
 }
+
+export async function deleteFromDatabase(id: string): Promise<void> {
+  const db = await getDatabaseConnection()
+  await new Promise((resolve, reject) => {
+    const tx = db.transaction(DB_STORE_NAME, 'readwrite')
+    const store = tx.objectStore(DB_STORE_NAME)
+    const request = store.delete(id)
+    request.onsuccess = () => { resolve(undefined) }
+    request.onerror = () => { reject(request.error) }
+    tx.oncomplete = () => { db.close() }
+  })
+}

@@ -6,7 +6,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 export default defineConfig({
   resolve: {
     alias: {
-      '@types': fileURLToPath(new URL('./types', import.meta.url))
+      '@packages': fileURLToPath(new URL('./packages', import.meta.url))
     }
   },
   build: {

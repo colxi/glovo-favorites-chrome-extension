@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "dev": "watch 'pnpm build' ./src-service-worker ./src-glovo-web ./src-extension-popup ./types",
+    "dev": "watch 'pnpm build' ./src-service-worker ./src-glovo-web ./src-extension-popup ./packages",
     "build": "run-p type-check lint build-popup build-worker build-web ",
     "build-web": "pnpm vite build --config vite.config.glovo-web.ts",
     "build-worker": "pnpm vite build --config vite.config.service-worker.ts",

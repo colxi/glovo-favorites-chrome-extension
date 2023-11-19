@@ -1,14 +1,10 @@
+import { favoriteStoresRoute } from './../presentation/favorite-stores/routes/index'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
+    favoriteStoresRoute,
     {
       path: '/about',
       name: 'about',

@@ -1,5 +1,5 @@
-import { api } from './../api/index'
-import type { Method } from '@types'
+import { api } from '@packages/worker-api'
+import type { Method } from '@packages/types'
 import debounce from 'debounce'
 import { WEB_INIT_CALLBACK_DELAY, WEB_ROOT_NODE_ID } from '../config'
 

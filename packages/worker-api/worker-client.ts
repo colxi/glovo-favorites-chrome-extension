@@ -1,5 +1,6 @@
-import type { WorkerRequest, WorkerResponse } from '@types'
-import { DEBUG_ENABLED } from './../config'
+import type { WorkerRequest, WorkerResponse } from '@packages/types'
+
+const DEBUG_ENABLED = true
 
 export const workerClient = {
   exec: async <T>(requestData: WorkerRequest): Promise<T> => {
