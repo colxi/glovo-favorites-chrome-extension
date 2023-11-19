@@ -1,6 +1,7 @@
 import type { StoreDetails, ProductDetails } from './types'
 import { querySelectorStrict, querySelectorAllStrict } from '../../utils/query-selector'
 import { api } from './../../api'
+import { ADD_PRODUCT_TO_FAVORITES_BUTTON } from './selectors'
 
 export function isStorePage(): boolean {
   const result = querySelectorStrict(document, '.app-wrapper section.store')
@@ -8,7 +9,7 @@ export function isStorePage(): boolean {
 }
 
 export function isAlreadyIntegrated(): boolean {
-  return querySelectorAllStrict(document, '.favorite-button').length > 0
+  return querySelectorAllStrict(document, ADD_PRODUCT_TO_FAVORITES_BUTTON).length > 0
 }
 
 export async function getCurrentStoreDetails(): Promise<StoreDetails> {

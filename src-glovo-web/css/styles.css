@@ -1,24 +1,21 @@
-[favorite-product= "true"]{
+[is-favorite= "true"]{
   background: #ffc245;
 }
 
-.favorite-button{
+.add_product_to_favorite__wrapper{
   place-self: center;
-    width: 100%;
-    display: grid;
-    margin-right: 20px;
-    place-content: end;
+  width: 100%;
+  display: grid;
+  margin-right: 20px;
+  place-content: end;
 }
 
-.favorite-button__icon{
+.add_product_to_favorite__button{
+  cursor:pointer;
   width:25px
 }
 
-[favorite-product="true"] .favorite-button__icon {
-  display: block;
-}
-
-[favorite-product="false"] .favorite-button__icon {
+[is-favorite="false"] .add_product_to_favorite__button {
   display: block;
   opacity: 0.5;
   filter: grayscale();

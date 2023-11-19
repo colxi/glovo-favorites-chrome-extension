@@ -1,3 +1,4 @@
+import { PRODUCT_ROW, PRODUCT_ROW_BUTTONS_WRAPPER, ADD_PRODUCT_TO_CART_BUTTON } from './selectors'
 import { api } from './../../api'
 import { uuid } from './../../utils/uuid'
 import { querySelectorAllStrict, querySelectorStrict } from '../../utils/query-selector'
@@ -15,31 +16,22 @@ export async function integrateExtensionInStorePage(): Promise<void> {
   if (isAlreadyIntegrated()) return
 
   // iterate all products on the page
-  const products = querySelectorAllStrict(document, '.product-row')
+  const products = querySelectorAllStrict(document, PRODUCT_ROW)
   for (const productEl of products) {
     // set the favorite-product attribute to product
     const productDetails = await getProductDetails(productEl)
-    productEl.setAttribute('favorite-product', `${productDetails.isInFavorites}`)
+    productEl.setAttribute('is-favorite', `${productDetails.isInFavorites}`)
 
     // create the add to favorite button
-    const heartRedUrl = chrome.runtime.getURL('./dist/glovo-web/heart_red.png')
-    const addToFavoritesButtonEl = document.createElement('div')
-    addToFavoritesButtonEl.className = 'favorite-button'
-    addToFavoritesButtonEl.innerHTML = `<img src="${heartRedUrl}" class="favorite-button__icon" />`
-    const buttonsContainerEl = querySelectorStrict(productEl, '.product-row__bottom')
-    const addProductToCartButtonEl = querySelectorStrict(productEl, '.product__button')
-
-    // TODO: Investigate why the button is not inserted when the product has been
-    // added to the cart.
-    try {
-      buttonsContainerEl.insertBefore(addToFavoritesButtonEl, addProductToCartButtonEl)
-    } catch (e) {
-      console.log(
-        '❌',
-        e instanceof Error ? e.message : String(e),
-        { buttonsContainerEl, addToFavoritesButtonEl, addProductToCartButtonEl }
-      )
-    }
+    const addToFavoritesButtonEl = document.createElement('img')
+    addToFavoritesButtonEl.src = chrome.runtime.getURL('./dist/glovo-web/heart_red.png')
+    addToFavoritesButtonEl.className = 'add_product_to_favorite__button'
+    const addToFavoritesContainerEl = document.createElement('div')
+    addToFavoritesContainerEl.className = 'add_product_to_favorite__wrapper'
+    addToFavoritesContainerEl.appendChild(addToFavoritesButtonEl)
+    const buttonsContainerEl = querySelectorStrict(productEl, PRODUCT_ROW_BUTTONS_WRAPPER)
+    const addProductToCartButtonEl = querySelectorStrict(productEl, ADD_PRODUCT_TO_CART_BUTTON)
+    buttonsContainerEl.insertBefore(addToFavoritesContainerEl, addProductToCartButtonEl)
 
     // add the click event listener
     addToFavoritesButtonEl.addEventListener('click', (e) => {
@@ -57,7 +49,7 @@ async function onAddProductToFavoritesButtonClick(productEl: HTMLElement): Promi
   // if product is in favorites, remove it
   if (productDetails.isInFavorites) {
     await api.removeProductFromStoreFavorites(storeDetails.url, productDetails.name)
-    productEl.setAttribute('favorite-product', 'false')
+    productEl.setAttribute('is-favorite', 'false')
   }
   // if product is not in favorites add it...
   else {
@@ -77,6 +69,6 @@ async function onAddProductToFavoritesButtonClick(productEl: HTMLElement): Promi
         products: [{ name: productDetails.name, image: productDetails.imageUrl }]
       })
     }
-    productEl.setAttribute('favorite-product', 'true')
+    productEl.setAttribute('is-favorite', 'true')
   }
 }
