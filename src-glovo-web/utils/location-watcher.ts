@@ -2,7 +2,6 @@ import { api } from './../api/index'
 import type { Method } from '@types'
 import debounce from 'debounce'
 import { WEB_INIT_CALLBACK_DELAY, WEB_ROOT_NODE_ID } from '../config'
-import { throwError } from './throw-error'
 
 export function initLocationWatcher(onLocationChangeHandler: Method): void {
   // initialize it with an empty string to ensure fist call is not rejected
@@ -22,7 +21,7 @@ export function initLocationWatcher(onLocationChangeHandler: Method): void {
 
   // observe mutations of the root element and check if the location has changed
   // after those mutations. If so, call the callback
-  const mutationObserver = new MutationObserver(() => debouncedOnLocationChangeHandler().catch(throwError))
+  const mutationObserver = new MutationObserver(() => debouncedOnLocationChangeHandler())
   const rootElement: HTMLElement | null = document.getElementById(WEB_ROOT_NODE_ID)
   if (!rootElement) throw new Error(`Root element with id ${WEB_ROOT_NODE_ID} not found`)
   mutationObserver.observe(rootElement, { childList: true, subtree: true })

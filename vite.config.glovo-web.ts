@@ -27,10 +27,6 @@ export default defineConfig({
           dest: './'
         },
         {
-          src: 'public/heart_white.png',
-          dest: './'
-        },
-        {
           src: 'public/heart_red.png',
           dest: './'
         },

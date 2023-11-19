@@ -10,7 +10,6 @@ import {
 import { throwError } from '../../utils/throw-error'
 
 export async function integrateExtensionInStorePage(): Promise<void> {
-  return
   // only integrate on the store page, and if not already integrated
   if (!isStorePage()) throw new Error('Integrator only compatible with store page')
   if (isAlreadyIntegrated()) return
@@ -24,24 +23,26 @@ export async function integrateExtensionInStorePage(): Promise<void> {
 
     // create the add to favorite button
     const heartRedUrl = chrome.runtime.getURL('./dist/glovo-web/heart_red.png')
-    const addButtonEl = document.createElement('div')
-    addButtonEl.className = 'favorite-button'
-    addButtonEl.innerHTML = `<img src="${heartRedUrl}" class="favorite-button__icon" />`
+    const addToFavoritesButtonEl = document.createElement('div')
+    addToFavoritesButtonEl.className = 'favorite-button'
+    addToFavoritesButtonEl.innerHTML = `<img src="${heartRedUrl}" class="favorite-button__icon" />`
     const buttonsContainerEl = querySelectorStrict(productEl, '.product-row__bottom')
     const addProductToCartButtonEl = querySelectorStrict(productEl, '.product__button')
+
     // TODO: Investigate why the button is not inserted when the product has been
     // added to the cart.
     try {
-      buttonsContainerEl.insertBefore(addButtonEl, addProductToCartButtonEl)
+      buttonsContainerEl.insertBefore(addToFavoritesButtonEl, addProductToCartButtonEl)
     } catch (e) {
-      console.error(
-        e,
-        { addButtonEl, addProductToCartButtonEl }
+      console.log(
+        '❌',
+        e instanceof Error ? e.message : String(e),
+        { buttonsContainerEl, addToFavoritesButtonEl, addProductToCartButtonEl }
       )
     }
 
     // add the click event listener
-    addButtonEl.addEventListener('click', (e) => {
+    addToFavoritesButtonEl.addEventListener('click', (e) => {
       e.preventDefault()
       e.stopPropagation()
       onAddProductToFavoritesButtonClick(productEl).catch(throwError)
