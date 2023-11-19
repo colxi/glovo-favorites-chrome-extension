@@ -3,9 +3,7 @@ import { integrateExtensionInStorePage } from './integrations/store-page'
 
 initLocationWatcher(integrateExtension)
 
-async function integrateExtension() {
+async function integrateExtension(): Promise<void> {
   const isStorePage = Boolean(document.querySelector('.app-wrapper section.store'))
-  if (isStorePage) integrateExtensionInStorePage()
+  if (isStorePage) await integrateExtensionInStorePage()
 }
-
-

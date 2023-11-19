@@ -2,10 +2,10 @@ import type { Method, WorkerRequest, WorkerResponse } from '@types'
 import { validateRequestObject } from './request-validator'
 
 /**
- * 
+ *
  * IMPORTANT:Any exit point of this function must return true, otherwise the following
  * error will be thrown on extension side: "The message port closed before a response was received.""
- * 
+ *
  */
 export function createRequestHandler(controllersMap: Record<string, Method>) {
   return (requestData: WorkerRequest, _sender: any, sendResponse: Method) => {
@@ -38,4 +38,3 @@ export function createRequestHandler(controllersMap: Record<string, Method>) {
     return true
   }
 }
-

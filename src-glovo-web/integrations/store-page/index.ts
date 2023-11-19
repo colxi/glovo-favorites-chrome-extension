@@ -7,8 +7,9 @@ import {
   isAlreadyIntegrated,
   isStorePage
 } from './helpers'
+import { throwError } from '../../utils/throw-error'
 
-export async function integrateExtensionInStorePage() {
+export async function integrateExtensionInStorePage(): Promise<void> {
   // only integrate on the store page, and if not already integrated
   if (!isStorePage()) throw new Error('Integrator only compatible with store page')
   if (isAlreadyIntegrated()) return
@@ -22,7 +23,7 @@ export async function integrateExtensionInStorePage() {
 
     // create the add to favorite button
     const heartRedUrl = chrome.runtime.getURL('./dist/glovo-web/heart_red.png')
-    var addButtonEl = document.createElement('div')
+    const addButtonEl = document.createElement('div')
     addButtonEl.className = 'favorite-button'
     addButtonEl.innerHTML = `<img src="${heartRedUrl}" class="favorite-button__icon" />`
     const buttonsContainerEl = querySelectorStrict(productEl, '.product-row__bottom')
@@ -33,13 +34,12 @@ export async function integrateExtensionInStorePage() {
     addButtonEl.addEventListener('click', (e) => {
       e.preventDefault()
       e.stopPropagation()
-      onAddProductToFavoritesButtonClick(productEl)
+      onAddProductToFavoritesButtonClick(productEl).catch(throwError)
     })
-
   }
 }
 
-async function onAddProductToFavoritesButtonClick(productEl: HTMLElement) {
+async function onAddProductToFavoritesButtonClick(productEl: HTMLElement): Promise<void> {
   const storeDetails = await getCurrentStoreDetails()
   const productDetails = await getProductDetails(productEl)
 
@@ -54,7 +54,7 @@ async function onAddProductToFavoritesButtonClick(productEl: HTMLElement) {
     if (storeDetails.isInFavorites) {
       await api.addProductToStoreFavorites(
         storeDetails.url,
-        { name: productDetails.name, image: productDetails.imageUrl, },
+        { name: productDetails.name, image: productDetails.imageUrl }
       )
     }
     // if not, add store to favorites with the product
@@ -63,11 +63,9 @@ async function onAddProductToFavoritesButtonClick(productEl: HTMLElement) {
         id: uuid(),
         url: storeDetails.url,
         name: storeDetails.name,
-        products: [{ name: productDetails.name, image: productDetails.imageUrl, }],
+        products: [{ name: productDetails.name, image: productDetails.imageUrl }]
       })
     }
     productEl.setAttribute('favorite-product', 'true')
   }
 }
-
-

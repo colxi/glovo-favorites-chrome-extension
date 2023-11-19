@@ -21,7 +21,7 @@ export const api = {
   addStoreToFavorites: async (
     storeData: StoreDescriptor
   ): Promise<void> => {
-    return await workerClient.exec({
+    await workerClient.exec({
       type: 'request',
       method: 'addStoreToFavorites',
       parameters: [storeData]
@@ -31,7 +31,7 @@ export const api = {
   addProductToStoreFavorites: async (
     storeUrl: string, productData: StoreProductDescriptor
   ): Promise<void> => {
-    return await workerClient.exec({
+    await workerClient.exec({
       type: 'request',
       method: 'addProductToStoreFavorites',
       parameters: [storeUrl, productData]
@@ -41,7 +41,7 @@ export const api = {
   removeProductFromStoreFavorites: async (
     storeUrl: string, productName: string
   ): Promise<void> => {
-    return await workerClient.exec({
+    await workerClient.exec({
       type: 'request',
       method: 'removeProductFromStoreFavorites',
       parameters: [storeUrl, productName]
@@ -76,7 +76,6 @@ export const api = {
       method: 'getStoreFromFavorites',
       parameters: [storeUrl]
     })
-  },
-
+  }
 
 }

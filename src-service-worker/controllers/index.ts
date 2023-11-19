@@ -10,7 +10,7 @@ export const workerPublicMethodsMap: Record<string, Method> = {
   isStoreInFavorites,
   getStoreFromFavorites,
   getActiveNetworkConnections,
-  removeProductFromStoreFavorites,
+  removeProductFromStoreFavorites
 }
 
 async function getAllFavorites(): Promise<StoreDescriptor[]> {
@@ -88,5 +88,3 @@ async function isStoreInFavorites(
 async function getActiveNetworkConnections(): Promise<number> {
   return getActiveConnections()
 }
-
-

@@ -1,22 +1,21 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { v4 as uuid } from 'uuid'
 
 interface Favorite {
-  id: number,
-  url: string,
-  name: string,
+  id: number
+  url: string
+  name: string
   products: [
     {
-      image: string,
-      name: string,
+      image: string
+      name: string
     },
-  ],
+  ]
 }
 
-const sendMessageToBackground = (message: any): Promise<any> => {
+const sendMessageToBackground = async (message: any): Promise<any> => {
   const sendMessage = (self as any).chrome.runtime.sendMessage
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     sendMessage(message, (response: any) => {
       if (response) {
         resolve(response)
@@ -27,11 +26,10 @@ const sendMessageToBackground = (message: any): Promise<any> => {
   })
 }
 
-
 export const useFavoritesStore = defineStore('favorites-store', () => {
   const favorites = ref<Favorite[]>([])
 
-  const init = async () => {
+  const init = async (): Promise<void> => {
     favorites.value = await sendMessageToBackground({ type: 'getAllFavorites' })
   }
 

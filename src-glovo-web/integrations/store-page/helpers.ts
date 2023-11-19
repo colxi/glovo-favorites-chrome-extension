@@ -3,7 +3,8 @@ import { querySelectorStrict, querySelectorAllStrict } from '../../utils/query-s
 import { api } from './../../api'
 
 export function isStorePage(): boolean {
-  return Boolean(querySelectorStrict(document, '.app-wrapper section.store'))
+  const result = querySelectorStrict(document, '.app-wrapper section.store')
+  return Boolean(result)
 }
 
 export function isAlreadyIntegrated(): boolean {

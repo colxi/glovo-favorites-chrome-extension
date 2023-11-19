@@ -3,10 +3,10 @@
   "include": [
     "env.d.ts",
     "types/**/*",
-    "src/**/*",
-    "src/**/*.vue",
-    "src-glovo-web/**/*",
-    "src-service-worker/**/*"
+    "src-extension-popup/**/*",
+    "src-extension-popup/**/*.vue",
+    "src-service-worker/**/*",
+    "src-glovo-web/**/*"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {

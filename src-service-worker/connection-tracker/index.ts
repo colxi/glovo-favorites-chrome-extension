@@ -4,9 +4,8 @@ export function initConnectionsTracker(): void {
   chrome.webRequest.onBeforeRequest.addListener(
     function () {
       active++
-      return
     },
-    { urls: ["<all_urls>"] },
+    { urls: ['<all_urls>'] }
   )
 
   chrome.webRequest.onCompleted.addListener(
@@ -14,7 +13,7 @@ export function initConnectionsTracker(): void {
       active--
       return details
     },
-    { urls: ["<all_urls>"] },
+    { urls: ['<all_urls>'] }
   )
 }
 
