@@ -10,6 +10,7 @@ import {
 import { throwError } from '../../utils/throw-error'
 
 export async function integrateExtensionInStorePage(): Promise<void> {
+  return
   // only integrate on the store page, and if not already integrated
   if (!isStorePage()) throw new Error('Integrator only compatible with store page')
   if (isAlreadyIntegrated()) return
@@ -28,7 +29,16 @@ export async function integrateExtensionInStorePage(): Promise<void> {
     addButtonEl.innerHTML = `<img src="${heartRedUrl}" class="favorite-button__icon" />`
     const buttonsContainerEl = querySelectorStrict(productEl, '.product-row__bottom')
     const addProductToCartButtonEl = querySelectorStrict(productEl, '.product__button')
-    buttonsContainerEl.insertBefore(addButtonEl, addProductToCartButtonEl)
+    // TODO: Investigate why the button is not inserted when the product has been
+    // added to the cart.
+    try {
+      buttonsContainerEl.insertBefore(addButtonEl, addProductToCartButtonEl)
+    } catch (e) {
+      console.error(
+        e,
+        { addButtonEl, addProductToCartButtonEl }
+      )
+    }
 
     // add the click event listener
     addButtonEl.addEventListener('click', (e) => {
